@@ -48,4 +48,9 @@ public class WorkAddressService {
 
         return regWorkAdd;
     }
+
+    public WorkAddress findWorkAddress(String workAddress) {
+        System.out.println("Call to work Address service: " + workAddressRepository.findByWorkAddress(workAddress));
+        return workAddressRepository.findByWorkAddress(workAddress);
+    }
 }
