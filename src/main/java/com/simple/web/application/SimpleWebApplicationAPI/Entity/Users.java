@@ -1,5 +1,7 @@
 package com.simple.web.application.SimpleWebApplicationAPI.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -10,18 +12,24 @@ public class Users {
     //TODO: add nullable = false
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Integer userID;
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "birth_date")
     private LocalDate birthDate;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "work_addid", referencedColumnName = "workAddID")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "work_addid", referencedColumnName ="work_addid")
+    @JsonProperty("workAddress")
     private WorkAddress workAdd;
 
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "home_addid", referencedColumnName = "homeAddID")
+    @JoinColumn(name = "home_addid", referencedColumnName = "home_addid")
+    @JsonProperty("homeAddress")
     private HomeAddress homeAdd;
 
     public Users() {
@@ -76,6 +84,7 @@ public class Users {
         this.birthDate = birthDate;
     }
 
+    @JsonProperty("workAddress")
     public WorkAddress getWorkAdd() {
         return workAdd;
     }
@@ -84,6 +93,7 @@ public class Users {
         this.workAdd = workAdd;
     }
 
+    @JsonProperty("homeAddress")
     public HomeAddress getHomeAdd() {
         return homeAdd;
     }

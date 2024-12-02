@@ -1,5 +1,6 @@
 package com.simple.web.application.SimpleWebApplicationAPI.Entity;
 
+import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,16 +11,18 @@ public class WorkAddress {
     //TODO: add nullable = false
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "work_addid")
     private Integer workAddID;
+    @Column(name = "work_address")
     private String workAddress;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-    @OneToMany(mappedBy = "workAdd", cascade = CascadeType.ALL)
-    private List<Users> users; //Foreign key
+    @OneToOne(mappedBy = "workAdd",cascade = CascadeType.ALL)
+    private Users users; //Foreign key
 
-    public WorkAddress(String workAddress, List<Users> users) {
+    public WorkAddress() {
+    }
+
+    public WorkAddress(String workAddress) {
         this.workAddress = workAddress;
-        this.users = users;
     }
 
     public Integer getWorkAddID() {
@@ -38,11 +41,11 @@ public class WorkAddress {
         this.workAddress = workAddress;
     }
 
-    public List<Users> getUsers() {
+    public Users getUsers() {
         return users;
     }
 
-    public void setUsers(List<Users> users) {
+    public void setUsers(Users users) {
         this.users = users;
     }
 }

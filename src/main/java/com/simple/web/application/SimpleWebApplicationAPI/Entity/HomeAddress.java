@@ -1,5 +1,7 @@
 package com.simple.web.application.SimpleWebApplicationAPI.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,13 +10,20 @@ public class HomeAddress {
     //TODO: add nullable = false
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "home_addid")
     private Integer homeAddID;
+    @Column(name = "home_address")
+//    @SerializedName("homeAddress")
     private String homeAddress;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id", referencedColumnName = "userID")
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "homeAdd")
+    @OneToOne(mappedBy = "homeAdd", cascade = CascadeType.ALL)
     private Users user;
+
+    public HomeAddress() {
+    }
+
+    public HomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 
     public HomeAddress(String homeAddress, Users user) {
         this.homeAddress = homeAddress;
